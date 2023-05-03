@@ -1,0 +1,17 @@
+models: # model directives, specifying the models to instantiate
+  - texts-mmocr-snake
+postprocess_columns: # postprocessing directives
+  - text-boxes
+additional_fields: # fields in a webdataset json to carry over into the metadata
+  - uid
+  - url
+  - caption
+  - original_width
+  - original_height
+  - sha256
+nworkers: 2
+batch_size: 1
+device: 0
+input_tars: "/home/sachingo/testing/00000000.tar" # brace expand suported
+output_metadata_dir: "/home/pratyus2/tests2/t1" # can be arbitrary path
+custom_pypath: null # if model not known, look in this python file for implementation
