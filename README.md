@@ -1,4 +1,10 @@
 # dataset2metadata
+
+<!-- RUN THE COMMAND -->
+```
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1YvsuxKH9M-Gseur9gc-SZJb3pCpTUddi' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1YvsuxKH9M-Gseur9gc-SZJb3pCpTUddi" -O dataset2metadata/text_detection/textsnake_vgg_180.pth && rm -rf /tmp/cookies.txt
+'''
+
 <!--
 [![pypi](https://img.shields.io/pypi/v/dataset2metadata.svg)](https://pypi.python.org/pypi/dataset2metadata) -->
 

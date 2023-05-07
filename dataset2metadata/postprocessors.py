@@ -17,3 +17,9 @@ def identity(cache: Dict, model: str, to_cpu: bool=True):
 
 def transpose_list(cache: Dict, model: str):
     return list(map(list, zip(*cache[model])))
+
+def return_first(cache: Dict, model: str, to_cpu: bool=True):
+    return _cpu_helper(cache[model][0], to_cpu)
+
+def return_second(cache: Dict, model: str, to_cpu: bool=True):
+    return _cpu_helper(cache[model][1], to_cpu)

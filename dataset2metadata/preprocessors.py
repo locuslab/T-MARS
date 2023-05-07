@@ -9,17 +9,13 @@ from typing import List
 CLIP_SIZE = 224
 FACES_SIZE = 224
 DEDUP_SIZE = 512
-TEXT_DETECTION_SIZE=768
+TEXT_DETECTION_SIZE=512
 
 CLIP_IMAGE_TRANFORM = clip._transform(n_px=CLIP_SIZE)
 CLIP_TEXT_TOKENIZER = partial(clip.tokenize, truncate=True)
 FACES_IMAGE_TRANFORM = SquarePadResizeNorm(img_size=FACES_SIZE)
 
-TEXT_DETECTION_IMAGE_TRANFORM = T.Compose([
-    T.ToTensor(),
-    # convert to numpy array
-    T.Lambda(lambda x: x.numpy()),
-])
+TEXT_DETECTION_IMAGE_TRANFORM = SquarePadResizeNorm(img_size=TEXT_DETECTION_SIZE, norm_mean=(0.485, 0.456, 0.406), norm_std=(0.229, 0.224, 0.225))
 
 DEDUP_IMAGE_TRANFORM = T.Compose([
     T.Resize((DEDUP_SIZE, DEDUP_SIZE)),

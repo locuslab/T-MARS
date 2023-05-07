@@ -10,13 +10,16 @@ class SquarePadResizeNorm:
     Credit to Sunding Wei:
     https://discuss.pytorch.org/t/how-to-resize-and-pad-in-a-torchvision-transforms-compose/71850/5
     '''
-    def __init__(self, img_size, norm_mean=(0.5, 0.5, 0.5), norm_std=(0.5, 0.5, 0.5)):
+    def __init__(self, img_size, norm_mean=(0.5, 0.5, 0.5), norm_std=(0.5, 0.5, 0.5), do_normalize=True):
         self.img_size = img_size
         self.resize = T.Resize(img_size, interpolation=T.InterpolationMode.BICUBIC)  # Image will already be square
-        self.normalize = T.Normalize(
-            mean=norm_mean,
-            std=norm_std,
-        )
+        if do_normalize:
+            self.normalize = T.Normalize(
+                mean=norm_mean,
+                std=norm_std,
+            )
+        else:
+            self.normalize = lambda x: x
 
     def __call__(self, image):
 
@@ -45,5 +48,7 @@ class SquarePadResizeNorm:
 
         if isinstance(resized_img, PIL.Image.Image):
             resized_img = F.to_tensor(resized_img)
+
+
 
         return self.normalize(resized_img).unsqueeze(0), padding.unsqueeze(0)

@@ -30,7 +30,8 @@ postprocess_parquet_lookup = {
     'dedup-isc-ft-v107-score': partial(post.select, model='dedup-isc-ft-v107', index=1),
     'json-transpose': partial(post.transpose_list, model='json'),
     'face-boxes': partial(post.identity, model='faces-scrfd10g', to_cpu=False),
-    'text-boxes': partial(post.identity, model='texts-mmocr-snake', to_cpu=False),
+    'text-boxes': partial(post.return_first, model='texts-mmocr-snake', to_cpu=False),
+    'text-ocr': partial(post.return_second, model='texts-mmocr-snake', to_cpu=False),
 }
 
 postprocess_feature_lookup = {
