@@ -1,0 +1,17 @@
+models: # model directives, specifying the models to instantiate
+  - faces-scrfd10g
+postprocess_columns: # postprocessing directives
+  - face-boxes
+additional_fields: # fields in a webdataset json to carry over into the metadata
+  - url
+  - caption
+  - original_width
+  - original_height
+nworkers: 2
+batch_size: 1024
+device: 0
+input_tars: "/data/laion400m-image-caption-data/02144.tar" # brace expand suported
+# input_tars: "/data/testing/output1k.tar" # brace expand suported
+output_metadata_dir: "/data/testing/out3" # can be arbitrary path
+#
+# custom_pypath: null # if model not known, look in this python file for implementation

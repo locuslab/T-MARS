@@ -10,10 +10,10 @@ additional_fields: # fields in a webdataset json to carry over into the metadata
   - original_width
   - original_height
   # - sha256
-nworkers: 30
+nworkers: 10
 batch_size: 64
 device: 0
-input_tars: "/data/laion400m-image-caption-data/02144.tar" # brace expand suported
-# input_tars: "./examples/slurm/output100.tar" # brace expand suported
-output_metadata_dir: "/data/testing/out" # can be arbitrary path
+# input_tars: "/data/laion400m-image-caption-data/02144.tar" # brace expand suported
+input_tars: "/data/testing/output1k.tar" # brace expand suported
+output_metadata_dir: "/data/testing/out2" # can be arbitrary path
 custom_pypath: null # if model not known, look in this python file for implementation
