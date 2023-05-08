@@ -77,13 +77,17 @@ def process(
             return
 
     # if the user specifies specific custom implementaion of their own update the registry
-    if 'custom_pypath' in yml and yml['custom_pypath'] is not None:
-        custom = SourceFileLoader(
-            pathlib.Path(yml['custom_pypath']).stem,
-            yml['custom_pypath']
-        ).load_module()
+    # print(yml['custom_pypath'])
+    # if yml['custom_pypath'] is None:
+    #     yml['custom_pypath'] = "null"
+    # print(yml['custom_pypath'])
+    # if 'custom_pypath' in yml and yml['custom_pypath'] is not None:
+    #     custom = SourceFileLoader(
+    #         pathlib.Path(yml['custom_pypath']).stem,
+    #         yml['custom_pypath']
+    #     ).load_module()
 
-        update_registry(custom)
+    #     update_registry(custom)
 
     # import from registry here after we have updated
     from dataset2metadata.registry import (model_lookup,
@@ -126,7 +130,8 @@ def process(
         parquet_fields,
     )
 
-    for sample in dataloader:
+    from tqdm import tqdm
+    for sample in tqdm(dataloader):
         model_outputs = {}
 
         # eval all models sequentially in a top sort order

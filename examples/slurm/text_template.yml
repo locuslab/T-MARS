@@ -2,7 +2,7 @@ models: # model directives, specifying the models to instantiate
   - texts-mmocr-snake
 postprocess_columns: # postprocessing directives
   - text-boxes
-  # - text-ocr
+  - text-ocr
 additional_fields: # fields in a webdataset json to carry over into the metadata
   - key
   - url
@@ -13,7 +13,6 @@ additional_fields: # fields in a webdataset json to carry over into the metadata
 nworkers: 10
 batch_size: 64
 device: 0
-# input_tars: "/data/laion400m-image-caption-data/02144.tar" # brace expand suported
-input_tars: "/data/testing/output1k.tar" # brace expand suported
+input_tars: "/data/laion400m-image-caption-data/{00002..00003}.tar" # brace expand suported
 output_metadata_dir: "/data/testing/out2" # can be arbitrary path
 custom_pypath: null # if model not known, look in this python file for implementation

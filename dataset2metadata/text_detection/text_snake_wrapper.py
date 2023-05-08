@@ -9,7 +9,10 @@ sys.path.append("./")
 from models import build_model
 from models.utils import fuse_module, rep_model_convert
 
-counter = 0
+from mmocr.apis.inferencers.textrec_inferencer import TextRecInferencer
+from mmocr.utils import ConfigType, bbox2poly, crop_img, poly2bbox
+from mmocr.apis.inferencers import MMOCRInferencer
+# counter = 0
 
 class TextDetectorWrapper(nn.Module):
     def __init__(self, batch_size=512):
@@ -19,9 +22,9 @@ class TextDetectorWrapper(nn.Module):
         self.cfg = cfg
         checkpoint_path = "fast_tiny_tt_512_finetune_ic17mlt.pth"
 
-
         self.model = build_model(cfg.model)
         self.model = self.init_model(checkpoint_path)
+        self.textrec_inferencer = TextRecInferencer("CRNN", None, "cuda")
 
     def init_model(self, checkpoint_path):
         checkpoint = torch.load(checkpoint_path)
@@ -63,11 +66,27 @@ class TextDetectorWrapper(nn.Module):
         all_texts = []
         for i in range(batch_size):
             raw_contours = outputs["results"][i]["bboxes"]
+            img = x[i].cpu().numpy().transpose(1,2,0)
+            
+            crop_img_list = []
+            for polygon in raw_contours:
+                quad = bbox2poly(poly2bbox(polygon)).tolist()
+                crop_img_list.append(crop_img(img, quad).astype('uint8'))
+            
+            if len(crop_img_list) > 0:
+                all_results = self.textrec_inferencer(crop_img_list,progress_bar=False)['predictions']
+                text = [all_results[i]["text"] for i in range(len(all_results))]
+                text = " ".join(text)
+                # print(text)
+                all_texts.append(text)
+            else:
+                all_texts.append("")
+
             contours = [(np.array(raw_contours[j]).reshape(-1,2)).tolist() for j in range(len(raw_contours))]
             all_contours.append(contours)
-            all_texts.append("")
+            
 
-        counter += batch_size
+        # counter += batch_size
         
-        print(f"counter: {counter}")
+        # print(f"counter: {counter}")
         return all_contours, all_texts
