@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
     print(f'Saved {len(groups)} jobs to {jobs_dir_path}')
 
-    download_all()
-    print('Downloaded all default dataset2metadata checkpoints')
+    # download_all()
+    # print('Downloaded all default dataset2metadata checkpoints')
 
     print('Done.')

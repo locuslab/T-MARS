@@ -13,6 +13,6 @@ additional_fields: # fields in a webdataset json to carry over into the metadata
 nworkers: 10
 batch_size: 64
 device: 0
-input_tars: "/data/laion400m-image-caption-data/{00002..00003}.tar" # brace expand suported
-output_metadata_dir: "/data/testing/out2" # can be arbitrary path
+input_tars: "/project_data/datasets/laion400m-met-release/laion400m-image-caption-data/{00002..00003}.tar" # brace expand suported
+output_metadata_dir: "/project_data/datasets/laion400m-met-release/laion_ocr_crnn_metadata/" # can be arbitrary path
 custom_pypath: null # if model not known, look in this python file for implementation
