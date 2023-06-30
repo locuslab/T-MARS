@@ -9,7 +9,7 @@ pip install git+https://github.com/mlfoundations/dataset2metadata
 ```
 
 ## Text detection and recognition
-Please refer to [/dataset2metadata/text_detection/text_snake_wrapper.py] for the main implementation of text detection (FAST) and text recognition (MMOCR). 
+Please refer to [dataset2metadata/text_detection/text_snake_wrapper.py] for the main implementation of text detection (FAST) and text recognition (MMOCR). 
 Download the text detection model : 
 ```
 wget https://github.com/czczup/FAST/releases/download/release/fast_tiny_tt_512_finetune_ic17mlt.pth
