@@ -8,6 +8,8 @@ We use FAST (https://github.com/czczup/FAST) as the base algorithm for text dete
 pip install git+https://github.com/mlfoundations/dataset2metadata
 ```
 
+Refer to MMOCR installation instructions [here](https://mmocr.readthedocs.io/en/dev-1.x/get_started/install.html).
+
 ## Text detection and recognition
 Please refer to [text_snake_wrapper.py](https://github.com/locuslab/T-MARS/blob/main/dataset2metadata/text_detection/text_snake_wrapper.py) for the main implementation of text detection (FAST) and text recognition (MMOCR). 
 Download the text detection model : 
@@ -16,7 +18,7 @@ wget https://github.com/czczup/FAST/releases/download/release/fast_tiny_tt_512_f
 ```
 
 ## RUN
-Please see the [examples/](https://github.com/locuslab/T-MARS/tree/main/examples/slurm) folder for ways in which dataset2metadata is to be used for running T-MARS on webscale. You can specify the tar file paths in [text_template.yml](https://github.com/locuslab/T-MARS/blob/main/examples/slurm/text_template.yml) and create multiple such template files using [examples/prepare_jobs.py](https://github.com/locuslab/T-MARS/blob/main/examples/slurm/prepare_jobs.py)
+Please see the [examples/](https://github.com/locuslab/T-MARS/tree/main/examples/slurm) folder for ways in which dataset2metadata is to be used for running T-MARS on webscale. You can specify the tar file paths in [text_template.yml](https://github.com/locuslab/T-MARS/blob/main/examples/slurm/text_template.yml) and create multiple such template files using [prepare_jobs.py](https://github.com/locuslab/T-MARS/blob/main/examples/slurm/prepare_jobs.py)
 
 ```
 dataset2metadata --yml examples/text_template.yml
