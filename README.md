@@ -1,10 +1,10 @@
-## T-MARS
+# T-MARS
 Code for the web scale data curation approach proposed in "T-MARS: Improving Visual Representations by Circumventing Text Feature Learning
 ". Refer to the webpage for a quick summary.   
 Paper: https://arxiv.org/abs/2307.03132  
 Webpage: https://tmars-clip.github.io/
 
-# T-MARS Text Masking Code
+## T-MARS Text Masking Code
 We use FAST (https://github.com/czczup/FAST) as the base algorithm for text detection and MMOCR (https://mmocr.readthedocs.io/en/dev-1.x/) for text recognition i.e. reading the text. This repository shares the combined implementation of FAST and MMOCR for running on web-scales (adapted from DataComp https://www.datacomp.ai/).
 
 
