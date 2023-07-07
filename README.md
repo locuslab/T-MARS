@@ -1,7 +1,5 @@
 # T-MARS
-Code for the web scale data curation approach proposed in "T-MARS: Improving Visual Representations by Circumventing Text Feature Learning
-". Refer to the webpage for a quick summary.   
-Paper: https://arxiv.org/abs/2307.03132  
+Official repository for the paper [T-MARS: Improving Visual Representations by Circumventing Text Feature Learning](https://arxiv.org/abs/2307.03132).  
 Webpage: https://tmars-clip.github.io/
 
 ## T-MARS Text Masking Code
