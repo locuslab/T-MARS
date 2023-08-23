@@ -10,9 +10,8 @@ from models import build_model
 from models.utils import fuse_module, rep_model_convert
 
 from mmocr.apis.inferencers.textrec_inferencer import TextRecInferencer
-from mmocr.utils import ConfigType, bbox2poly, crop_img, poly2bbox
-from mmocr.apis.inferencers import MMOCRInferencer
-# counter = 0
+from mmocr.utils import bbox2poly, crop_img, poly2bbox
+
 
 class TextDetectorWrapper(nn.Module):
     def __init__(self, batch_size=512):
@@ -37,19 +36,17 @@ class TextDetectorWrapper(nn.Module):
         self.model = self.model.to("cuda")
 
         self.model = rep_model_convert(self.model)
-
         # fuse conv and bn
         self.model = fuse_module(self.model)
-    
         self.model.eval()
-
         return self.model
 
     
-    def forward(self, x):
+    def forward(self, x, get_text=False):
         global counter
 
         batch_size = x.shape[0]
+        print(f"batch_size: {batch_size}")
         data = dict(imgs=x, 
                     img_metas={
                         'filename': [None for i in range(batch_size)],
@@ -66,27 +63,26 @@ class TextDetectorWrapper(nn.Module):
         all_texts = []
         for i in range(batch_size):
             raw_contours = outputs["results"][i]["bboxes"]
-            img = x[i].cpu().numpy().transpose(1,2,0)
-            
-            crop_img_list = []
-            for polygon in raw_contours:
-                quad = bbox2poly(poly2bbox(polygon)).tolist()
-                crop_img_list.append(crop_img(img, quad).astype('uint8'))
-            
-            if len(crop_img_list) > 0:
-                all_results = self.textrec_inferencer(crop_img_list,progress_bar=False)['predictions']
-                text = [all_results[i]["text"] for i in range(len(all_results))]
-                text = " ".join(text)
-                # print(text)
-                all_texts.append(text)
+            if get_text:
+                img = x[i].cpu().numpy().transpose(1,2,0)
+                
+                crop_img_list = []
+                for polygon in raw_contours:
+                    quad = bbox2poly(poly2bbox(polygon)).tolist()
+                    crop_img_list.append(crop_img(img, quad).astype('uint8'))
+                
+                if len(crop_img_list) > 0:
+                    all_results = self.textrec_inferencer(crop_img_list,progress_bar=False)['predictions']
+                    text = [all_results[i]["text"] for i in range(len(all_results))]
+                    text = " ".join(text)
+                    # print(text)
+                    all_texts.append(text)
+                else:
+                    all_texts.append("")
             else:
                 all_texts.append("")
 
             contours = [(np.array(raw_contours[j]).reshape(-1,2)).tolist() for j in range(len(raw_contours))]
             all_contours.append(contours)
             
-
-        # counter += batch_size
-        
-        # print(f"counter: {counter}")
         return all_contours, all_texts
